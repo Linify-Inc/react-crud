@@ -190,7 +190,7 @@ class App extends React.Component {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + userToken
       },
-      body: JSON.stringify({ name: persona.name, gender: persona.gender, email: persona.email, status: persona.status }),
+      body: JSON.stringify({ name: persona.name }),
       method: 'PATCH'
     };
     var data;
