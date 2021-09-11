@@ -175,6 +175,37 @@ class App extends React.Component {
     return data;
   }
 
+  updateUser = async (persona) => {
+    const user = {
+      name: persona.name, 
+      gender: persona.gender, 
+      email: persona.email, 
+      status: persona.status
+    }
+    let url = `https://gorest.co.in/public/v1/users/`;
+    let userToken = '6b4a8a1beaadfc04077ebbab1f44f0d0464fc254fd4d5c1cce259b766efd834a';
+    const requestOptions = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userToken
+      },
+      body: JSON.stringify({ name: persona.name, gender: persona.gender, email: persona.email, status: persona.status }),
+      method: 'PATCH'
+    };
+    var data;
+    console.log('Url: ' + url + persona.id);
+    console.log(JSON.stringify(requestOptions));
+    console.log(JSON.stringify({ name: persona.name, gender: persona.gender, email: persona.email, status: persona.status }));
+
+    fetch(url + persona.id, requestOptions)
+    .then(response => response.json())
+    .then(json => {data = json;})
+    .catch(error => {console.log('updateUser error: ' + error.message);});
+    console.log(data);
+    return data;
+  }
+
   delete = async (persona) => {
     let url = `https://gorest.co.in/public/v1/users/`;
     let userToken = '6b4a8a1beaadfc04077ebbab1f44f0d0464fc254fd4d5c1cce259b766efd834a';
@@ -349,7 +380,7 @@ class App extends React.Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.updateUser(this.state.form)}
             >
               Save
             </Button>
