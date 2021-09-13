@@ -190,12 +190,14 @@ class App extends React.Component {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + userToken
       },
-      body: JSON.stringify({ name: persona.name }),
+      body: JSON.stringify({ name: persona.name, gender: persona.gender, email: persona.email, status: persona.status }),
       method: 'PATCH'
     };
     var data;
     console.log('Url: ' + url + persona.id);
+    console.log('requestOptions:');
     console.log(JSON.stringify(requestOptions));
+    console.log('Other things');
     console.log(JSON.stringify({ name: persona.name, gender: persona.gender, email: persona.email, status: persona.status }));
 
     fetch(url + persona.id, requestOptions)
@@ -203,6 +205,9 @@ class App extends React.Component {
     .then(json => {data = json;})
     .catch(error => {console.log('updateUser error: ' + error.message);});
     console.log(data);
+
+    this.cerrarModalActualizar();
+
     return data;
   }
 
@@ -288,7 +293,6 @@ class App extends React.Component {
                 <th>Action</th>
               </tr>
             </thead>
-
             <tbody>
               {this.state.personas.map((persona) => (
                 <tr key={persona.id}>
